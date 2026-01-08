@@ -7,7 +7,6 @@ export const router = Router();
 // render form
 router.get('/', (req, res) => {
   res.render('form', {
-    title: 'Parse HTTP GET data',
-    data: req.query
+    title: 'Parse HTTP GET data'
   });
 });
