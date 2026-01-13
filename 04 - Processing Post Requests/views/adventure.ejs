@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <h1><%= title %></h1>
+
+    <p class="status">
+      Starter: <strong><%= state.starter || '—' %></strong> |
+      Path: <strong><%= state.path || '—' %></strong>
+    </p>
+
+    <% if (step === 1) { %>
+      <h2>Step 1: Choose a starter</h2>
+
+      <form action="/adventure" method="post" class="card">
+        <label><input type="radio" name="starter" value="Bulbasaur" required> Bulbasaur</label>
+        <label><input type="radio" name="starter" value="Charmander" required> Charmander</label>
+        <label><input type="radio" name="starter" value="Squirtle" required> Squirtle</label>
+
+        <button>Continue</button>
+      </form>
+    <% } %>
+
+    <% if (step === 2) { %>
+      <h2>Step 2: Choose your path</h2>
+
+      <form action="/adventure" method="post" class="card">
+        <!-- carry starter forward -->
+        <input type="hidden" name="starter" value="<%= state.starter %>">
+
+        <label><input type="radio" name="path" value="Train" required> Train</label>
+        <label><input type="radio" name="path" value="Explore" required> Explore</label>
+        <label><input type="radio" name="path" value="Battle" required> Battle</label>
+
+        <button>Reveal Outcome</button>
+      </form>
+    <% } %>
+
+    <% if (step === 3) { %>
+      <h2>Outcome</h2>
+
+      <div class="card">
+        <h3><%= outcome.heading %></h3>
+        <p><%= outcome.text %></p>
+
+        <form action="/" method="get">
+          <button type="submit">Play Again</button>
+        </form>
+      </div>
+
+      
+    <% } %>
+
+    <details>
+      <summary>Debug (see POST data)</summary>
+      <pre><%= JSON.stringify({ step, state, outcome }, null, 2) %></pre>
+    </details>
+  </main>
+</body>
+</html>
